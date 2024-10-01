@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cub4se60qt0sd"]
+
+[ext_resource type="Material" uid="uid://cqklk5765hk4o" path="res://Materials/CassettePlayer.tres" id="1_6emy2"]
+[ext_resource type="Script" path="res://Scripts/CassettePlayer.gd" id="1_tyhqh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wpx0a"]
+material = ExtResource("1_6emy2")
+size = Vector3(8.5, 13, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_akpef"]
+size = Vector3(8.5, 13, 3)
+
+[node name="CassettePlayer" type="CharacterBody3D"]
+script = ExtResource("1_tyhqh")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_wpx0a")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_akpef")
