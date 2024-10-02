@@ -3,7 +3,7 @@ extends Camera3D
 var grabbed : Grabbable
 var try_grab : bool = false
 
-func _input(event):
+func _input(event : InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			try_grab = true
@@ -12,7 +12,7 @@ func _input(event):
 	if event is InputEventMouseMotion and grabbed:
 		grabbed.grabbed(event.relative)
 
-func _physics_process(delta):
+func _physics_process(delta : float) -> void:
 	if try_grab:
 		var space_state = get_world_3d().direct_space_state
 		
@@ -27,7 +27,6 @@ func _physics_process(delta):
 			var collider : Node = result.collider
 			if collider is Grabbable:
 				grabbed = collider
-				#grabbing = true
 		else:
 			grabbed = null
 		try_grab = false

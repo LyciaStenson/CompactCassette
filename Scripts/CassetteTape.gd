@@ -1,5 +1,4 @@
-extends CharacterBody3D
-class_name Grabbable
+extends Grabbable
 
 func grabbed(relative : Vector2) -> void:
 	pass

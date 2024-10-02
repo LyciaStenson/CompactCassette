@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1mh3g1dptbgn"]
+
+[ext_resource type="Script" path="res://Scripts/CassetteTape.gd" id="1_0adaw"]
+[ext_resource type="Material" uid="uid://cca6ws2sbmxlp" path="res://Materials/CassetteTape.tres" id="2_hjkqy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ckl0q"]
+material = ExtResource("2_hjkqy")
+size = Vector3(1.01, 0.635, 0.102)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xftuu"]
+size = Vector3(1.01, 0.635, 0.102)
+
+[node name="CassetteTape" type="CharacterBody3D"]
+script = ExtResource("1_0adaw")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ckl0q")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xftuu")
