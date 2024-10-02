@@ -18,7 +18,6 @@ func _physics_process(delta : float) -> void:
 	else:
 		speed.x = 0.0
 		speed.y = 0.0
-	print(speed)
 
 func grabbed(relative : Vector2) -> void:
 	speed += relative * 0.01
