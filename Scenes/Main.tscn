@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ba2646k5gih8v"]
+[gd_scene load_steps=9 format=3 uid="uid://ba2646k5gih8v"]
 
 [ext_resource type="PackedScene" uid="uid://cub4se60qt0sd" path="res://Scenes/CassettePlayer.tscn" id="1_26e47"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_gfgva"]
@@ -15,6 +15,12 @@ background_mode = 2
 sky = SubResource("Sky_v2885")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_o207a"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkhhd"]
+size = Vector3(0.4, 0.4, 0.4)
 
 [node name="Main" type="Node3D"]
 
@@ -34,3 +40,12 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_voxt8")
+
+[node name="RigidBody" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 5, 0)
+
+[node name="MeshInstance" type="MeshInstance3D" parent="RigidBody"]
+mesh = SubResource("BoxMesh_o207a")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="RigidBody"]
+shape = SubResource("BoxShape3D_fkhhd")

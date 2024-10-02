@@ -10,7 +10,8 @@ size = Vector3(1.01, 0.635, 0.102)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xftuu"]
 size = Vector3(1.01, 0.635, 0.102)
 
-[node name="CassetteTape" type="StaticBody3D"]
+[node name="CassetteTape" type="RigidBody3D"]
+gravity_scale = 0.0
 script = ExtResource("1_0adaw")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="."]
