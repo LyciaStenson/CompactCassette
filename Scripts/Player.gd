@@ -1,6 +1,6 @@
 extends Camera3D
 
-var grabbed : Grabbable
+var grabbed : Node3D
 var try_grab : bool = false
 
 func _input(event : InputEvent) -> void:
@@ -11,6 +11,10 @@ func _input(event : InputEvent) -> void:
 			grabbed = null
 	if event is InputEventMouseMotion and grabbed:
 		grabbed.grabbed(event.relative)
+
+func zoom():
+	if grabbed:
+		grabbed.zoom()
 
 func _physics_process(delta : float) -> void:
 	if try_grab:
@@ -25,7 +29,7 @@ func _physics_process(delta : float) -> void:
 		
 		if result:
 			var collider : Node = result.collider
-			if collider is Grabbable:
+			if collider.is_in_group("Grabbable"):
 				grabbed = collider
 		else:
 			grabbed = null

@@ -27,8 +27,9 @@ size = Vector3(0.4, 0.4, 0.4)
 [node name="CassettePlayer" parent="." instance=ExtResource("1_26e47")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, 0)
 
-[node name="CassetteTape" parent="." instance=ExtResource("2_unspv")]
+[node name="CassetteTape" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_unspv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, 0)
+camera = NodePath("../Camera")
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
@@ -48,4 +49,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 5, 0)
 mesh = SubResource("BoxMesh_o207a")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="RigidBody"]
+shape = SubResource("BoxShape3D_fkhhd")
+
+[node name="RigidBody2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 5, 0)
+
+[node name="MeshInstance" type="MeshInstance3D" parent="RigidBody2"]
+mesh = SubResource("BoxMesh_o207a")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="RigidBody2"]
 shape = SubResource("BoxShape3D_fkhhd")

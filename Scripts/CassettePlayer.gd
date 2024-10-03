@@ -1,4 +1,4 @@
-extends Grabbable
+extends StaticBody3D
 
 var speed : Vector2
 
