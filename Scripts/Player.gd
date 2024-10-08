@@ -3,20 +3,33 @@ extends Camera3D
 var grabbed : Node3D
 var try_grab : bool = false
 
+var dragging : bool = false
+var rotating : bool = false
+
 func _input(event : InputEvent) -> void:
-	if event is InputEventMouseButton:
+	if event.is_action("Drag") or event.is_action("Rotate"):
 		if event.is_pressed():
 			try_grab = true
-		elif event.is_released():
+		else:
 			grabbed = null
-	if event is InputEventMouseMotion and grabbed:
-		grabbed.grabbed(event.relative)
+	if grabbed:
+		if event is InputEventMouseMotion:
+			grabbed.drag(event.relative)
+		if event.is_action_pressed("ZoomIn") and grabbed:
+			grabbed.zoom_in()
+		elif event.is_action_pressed("ZoomOut") and grabbed:
+			grabbed.zoom_out()
 
-func zoom():
+func zoom_in():
+	if grabbed:
+		grabbed.zoom()
+
+func zoom_out():
 	if grabbed:
 		grabbed.zoom()
 
 func _physics_process(delta : float) -> void:
+	print(grabbed)
 	if try_grab:
 		var space_state = get_world_3d().direct_space_state
 		

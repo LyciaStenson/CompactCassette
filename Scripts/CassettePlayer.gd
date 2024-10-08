@@ -19,5 +19,5 @@ func _physics_process(delta : float) -> void:
 		speed.x = 0.0
 		speed.y = 0.0
 
-func grabbed(relative : Vector2) -> void:
+func drag(relative : Vector2) -> void:
 	speed += relative * 0.01
