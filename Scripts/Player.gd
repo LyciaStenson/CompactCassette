@@ -29,7 +29,6 @@ func zoom_out():
 		grabbed.zoom()
 
 func _physics_process(delta : float) -> void:
-	print(grabbed)
 	if try_grab:
 		var space_state = get_world_3d().direct_space_state
 		
@@ -44,6 +43,8 @@ func _physics_process(delta : float) -> void:
 			var collider : Node = result.collider
 			if collider.is_in_group("Grabbable"):
 				grabbed = collider
+			elif collider is CassettePlayerButton:
+				collider.press()
 		else:
 			grabbed = null
 		try_grab = false

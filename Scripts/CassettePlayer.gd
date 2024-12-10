@@ -1,13 +1,18 @@
 extends StaticBody3D
+class_name CassettePlayer
+
+@onready var stop_button : CassettePlayerButton = $StopButton
+@onready var play_button : CassettePlayerButton = $PlayButton
+@onready var rewind_button : CassettePlayerButton = $RewindButton
+@onready var fast_forward_button : CassettePlayerButton = $FastFowardButton
 
 var speed : Vector2
 
 func _ready() -> void:
-	pass
-
-func _process(delta : float) -> void:
-	#grabbed(Vector2(100.0 * randf_range(0.7, 1.3) * delta, 100.0 * randf_range(0.7, 1.3) * delta));
-	pass
+	stop_button.pressed.connect(stop_button_pressed)
+	play_button.pressed.connect(play_button_pressed)
+	rewind_button.pressed.connect(rewind_button_pressed)
+	fast_forward_button.pressed.connect(fast_forward_button_pressed)
 
 func _physics_process(delta : float) -> void:
 	if abs(speed.x) > 0.05 or abs(speed.y) > 0.05:
@@ -21,3 +26,21 @@ func _physics_process(delta : float) -> void:
 
 func drag(relative : Vector2) -> void:
 	speed += relative * 0.01
+
+func zoom_in():
+	pass
+
+func zoom_out():
+	pass
+
+func stop_button_pressed():
+	print("Stop Button Pressed")
+
+func play_button_pressed():
+	print("Play Button Pressed")
+
+func rewind_button_pressed():
+	print("Rewind Button Pressed")
+
+func fast_forward_button_pressed():
+	print("Fast Forward Button Pressed")

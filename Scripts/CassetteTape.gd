@@ -8,7 +8,6 @@ func drag(relative : Vector2) -> void:
 func zoom_in():
 	var zoom : Vector3 = 1.3 * (global_position - camera.global_position).normalized()
 	velocity += zoom
-	#print("zoom")
 
 func zoom_out():
 	var zoom : Vector3 = 1.3 * (global_position - camera.global_position).normalized()
@@ -16,7 +15,6 @@ func zoom_out():
 
 func _physics_process(delta : float) -> void:
 	if abs(velocity.x) > 0.05 or abs(velocity.y) > 0.05 or abs(velocity.z) > 0.05:
-		#position += Vector3(speed.x * delta, -speed.y * delta, 0.0)
 		velocity.x *= 0.9
 		velocity.y *= 0.9
 		velocity.z *= 0.9
