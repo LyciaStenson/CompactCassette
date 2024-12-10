@@ -1,12 +1,12 @@
 extends StaticBody3D
 class_name CassettePlayer
 
+var rotation_speed : Vector2
+
 @onready var stop_button : CassettePlayerButton = $StopButton
 @onready var play_button : CassettePlayerButton = $PlayButton
 @onready var rewind_button : CassettePlayerButton = $RewindButton
 @onready var fast_forward_button : CassettePlayerButton = $FastFowardButton
-
-var speed : Vector2
 
 func _ready() -> void:
 	stop_button.pressed.connect(stop_button_pressed)
@@ -15,17 +15,17 @@ func _ready() -> void:
 	fast_forward_button.pressed.connect(fast_forward_button_pressed)
 
 func _physics_process(delta : float) -> void:
-	if abs(speed.x) > 0.05 or abs(speed.y) > 0.05:
-		rotate(Vector3(0.0, 1.0, 0.0), speed.x * delta)
-		rotate(Vector3(1.0, 0.0, 0.0), speed.y * delta)
-		speed.x *= 0.95
-		speed.y *= 0.95
+	if abs(rotation_speed.x) > 0.05 or abs(rotation_speed.y) > 0.05:
+		rotate(Vector3(0.0, 1.0, 0.0), rotation_speed.x * delta)
+		rotate(Vector3(1.0, 0.0, 0.0), rotation_speed.y * delta)
+		rotation_speed.x *= 0.95
+		rotation_speed.y *= 0.95
 	else:
-		speed.x = 0.0
-		speed.y = 0.0
+		rotation_speed.x = 0.0
+		rotation_speed.y = 0.0
 
 func drag(relative : Vector2) -> void:
-	speed += relative * 0.01
+	rotation_speed += relative * 0.01
 
 func zoom_in():
 	pass
