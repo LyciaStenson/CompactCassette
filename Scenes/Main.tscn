@@ -20,12 +20,11 @@ glow_enabled = true
 
 [node name="CassettePlayer" parent="." instance=ExtResource("1_26e47")]
 
-[node name="CassetteTape" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_unspv")]
+[node name="CassetteTape" parent="." instance=ExtResource("2_unspv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
-camera = NodePath("../Camera")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
+transform = Transform3D(1, 0, 0, 0, 0.818802, 0.574077, 0, -0.574077, 0.818802, 0, 2.5, 2)
 script = ExtResource("2_gfgva")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

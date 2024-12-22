@@ -3,10 +3,15 @@ class_name CassettePlayer
 
 var rotation_speed : Vector2
 
+@export var tape_position : Vector3
+
 @onready var stop_button : CassettePlayerButton = $StopButton
 @onready var play_button : CassettePlayerButton = $PlayButton
 @onready var rewind_button : CassettePlayerButton = $RewindButton
 @onready var fast_forward_button : CassettePlayerButton = $FastFowardButton
+
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
+@onready var audio_player : AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 func _ready() -> void:
 	stop_button.pressed.connect(stop_button_pressed)
@@ -34,9 +39,13 @@ func zoom_out():
 	pass
 
 func stop_button_pressed():
+	audio_player.stop()
+	animation_player.play("OpenDoor")
 	print("Stop Button Pressed")
 
 func play_button_pressed():
+	if !audio_player.playing:
+		audio_player.play(0.0)
 	print("Play Button Pressed")
 
 func rewind_button_pressed():
@@ -44,3 +53,19 @@ func rewind_button_pressed():
 
 func fast_forward_button_pressed():
 	print("Fast Forward Button Pressed")
+
+func body_entered_area(body : Node3D):
+	if body is CassetteTape && body.is_physics_processing():
+		#print("Processing: " && body.is_physics_processing())
+		print("Parent before: ", body.get_parent())
+		body.reparent(self)
+		body.set_physics_process(false)
+		body.position = tape_position
+		body.rotation = Vector3()#(deg_to_rad(90.0), 0.0, 0.0)
+		#print("Tape entered area")
+
+#func body_exited_area(body : Node3D):
+	#if body is CassetteTape:
+		#body.reparent(get_tree().root)
+		#print("Parent after: ", body.get_parent())
+		#print("Tape exited area")

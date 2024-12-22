@@ -1,6 +1,10 @@
 extends CharacterBody3D
+class_name CassetteTape
 
-@export var camera : Camera3D
+@export var track_1 : AudioStream
+@export var track_2 : AudioStream
+
+@onready var camera : Camera3D = get_viewport().get_camera_3d()
 
 func drag(relative : Vector2) -> void:
 	velocity = Vector3(relative.x * 0.3, -relative.y * 0.3, 0.0)
