@@ -6,7 +6,16 @@ var try_grab : bool = false
 var dragging : bool = false
 var rotating : bool = false
 
+#var previous_mouse_pos : Vector2
+
 func _input(event : InputEvent) -> void:
+	if event is InputEventMouseButton:
+		event.button_index = MOUSE_BUTTON_LEFT
+		if event.is_released() && grabbed:
+			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				Input.warp_mouse(unproject_position(grabbed.global_position))
+			grabbed = null
 	if event.is_action("Drag") or event.is_action("Rotate"):
 		if event.is_pressed():
 			try_grab = true
@@ -42,6 +51,8 @@ func _physics_process(delta : float) -> void:
 		if result:
 			var collider : Node = result.collider
 			if collider.is_in_group("Grabbable"):
+				#previous_mouse_pos = get_viewport().get_mouse_position()
+				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				grabbed = collider
 			elif collider is CassettePlayerButton:
 				collider.press()
