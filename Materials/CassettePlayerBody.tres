@@ -1,5 +1,19 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://ha2ifnsjxllx"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ha2ifnsjxllx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6vdk0"]
+noise_type = 3
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4shh3"]
+width = 1024
+height = 1024
+seamless = true
+as_normal_map = true
+bump_strength = 0.5
+noise = SubResource("FastNoiseLite_6vdk0")
 
 [resource]
-transparency = 1
-albedo_color = Color(0.286275, 0.505882, 0.501961, 0.333333)
+cull_mode = 2
+albedo_color = Color(0.286275, 0.505882, 0.501961, 1)
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_4shh3")
