@@ -42,8 +42,7 @@ func zoom_out():
 
 func stop_button_pressed():
 	audio_player.stop()
-	#animation_player.play("OpenDoor")
-	print("Stop Button Pressed")
+	animation_player.play("OpenDoor")
 
 func play_button_pressed():
 	if !audio_player.playing && tape:

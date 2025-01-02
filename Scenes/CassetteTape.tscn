@@ -6,7 +6,7 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_ckl0q"]
 material = ExtResource("2_hjkqy")
-size = Vector3(1.01, 0.635, 0.127)
+size = Vector3(1.02, 0.635, 0.127)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xftuu"]
 size = Vector3(1.02, 0.635, 0.127)
