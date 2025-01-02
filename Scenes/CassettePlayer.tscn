@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/CassettePlayer.gd" id="1_tyhqh"]
 [ext_resource type="Script" path="res://Scripts/CassettePlayerButton.gd" id="2_2803b"]
-[ext_resource type="Material" uid="uid://ha2ifnsjxllx" path="res://Materials/CassettePlayerBody.tres" id="2_bju3p"]
-[ext_resource type="Material" uid="uid://irxdmyub874d" path="res://Materials/CassettePlayerButton.tres" id="3_o67ix"]
-[ext_resource type="Material" uid="uid://2avrv2l2e606" path="res://Materials/CassettePlayerWindow.tres" id="4_twpgd"]
+[ext_resource type="Material" uid="uid://ha2ifnsjxllx" path="res://Materials/PlayerBody.tres" id="2_bju3p"]
+[ext_resource type="Material" uid="uid://irxdmyub874d" path="res://Materials/PlayerButton.tres" id="3_o67ix"]
+[ext_resource type="Material" uid="uid://2avrv2l2e606" path="res://Materials/PlayerWindow.tres" id="4_twpgd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_akpef"]
 size = Vector3(1.32, 0.84, 0.32)
