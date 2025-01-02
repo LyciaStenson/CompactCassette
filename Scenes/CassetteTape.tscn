@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1mh3g1dptbgn"]
+[gd_scene load_steps=6 format=3 uid="uid://c1mh3g1dptbgn"]
 
 [ext_resource type="Script" path="res://Scripts/CassetteTape.gd" id="1_0adaw"]
+[ext_resource type="AudioStream" uid="uid://b3j4vgobe8vlf" path="res://Music/80s-retro-synth-wave-223103.mp3" id="2_2mj41"]
 [ext_resource type="Material" uid="uid://cca6ws2sbmxlp" path="res://Materials/CassetteTape.tres" id="2_hjkqy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ckl0q"]
@@ -13,6 +14,7 @@ size = Vector3(1.02, 0.635, 0.127)
 [node name="CassetteTape" type="CharacterBody3D" groups=["Grabbable"]]
 motion_mode = 1
 script = ExtResource("1_0adaw")
+track_1 = ExtResource("2_2mj41")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_ckl0q")

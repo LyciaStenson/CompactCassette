@@ -25,7 +25,7 @@ transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.7422
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.818802, 0.574077, 0, -0.574077, 0.818802, 0, 2.5, 2)
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 1.35, 1.452)
 script = ExtResource("2_gfgva")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
