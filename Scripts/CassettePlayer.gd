@@ -71,7 +71,7 @@ func door_pressed():
 	door_open = !door_open
 
 func body_entered_area(body : Node3D):
-	if door_open && body is CassetteTape && body.is_physics_processing():
+	if door_open && body is CassetteTape && !body.in_player:
 		tape = body
 		body.reparent(tape_point)
 		body.in_player = true
