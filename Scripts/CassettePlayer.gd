@@ -47,7 +47,7 @@ func zoom_out():
 
 func stop_button_pressed():
 	if !door_open:
-		door_open = false
+		door_open = true
 		audio_player.stop()
 		animation_player.play("OpenDoor")
 
@@ -72,7 +72,7 @@ func door_pressed():
 	#door_open = !door_open
 
 func body_entered_area(body : Node3D):
-	if body is CassetteTape && body.is_physics_processing():
+	if door_open && body is CassetteTape && body.is_physics_processing():
 		tape = body
 		body.reparent(tape_point)
 		body.in_player = true

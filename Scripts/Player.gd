@@ -8,8 +8,7 @@ var rotating : bool = false
 
 func _input(event : InputEvent) -> void:
 	if event is InputEventMouseButton:
-		event.button_index = MOUSE_BUTTON_LEFT
-		if event.is_released() && grabbed:
+		if grabbed && event.button_index == MOUSE_BUTTON_LEFT && event.is_released():
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				Input.warp_mouse(unproject_position(grabbed.global_position))
