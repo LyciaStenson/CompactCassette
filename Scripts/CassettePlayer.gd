@@ -62,6 +62,7 @@ func body_entered_area(body : Node3D):
 		body.reparent(tape_point)
 		body.in_player = true
 		body.position = Vector3()
-		body.rotation_degrees = Vector3(0.0, 0.0, 180.0)
+		body.rotation = Vector3()
+		#body.rotation_degrees = Vector3(0.0, 0.0, 180.0)
 		#body.set_physics_process(false)
 		#body.position = tape_point.position

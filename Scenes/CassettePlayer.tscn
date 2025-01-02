@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cub4se60qt0sd"]
+[gd_scene load_steps=29 format=3 uid="uid://cub4se60qt0sd"]
 
 [ext_resource type="Script" path="res://Scripts/CassettePlayer.gd" id="1_tyhqh"]
 [ext_resource type="Script" path="res://Scripts/CassettePlayerButton.gd" id="2_2803b"]
@@ -17,6 +17,9 @@ size = Vector3(0.145, 0.06, 0.145)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ng8vm"]
 size = Vector3(0.31, 0.06, 0.145)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jiysg"]
+size = Vector3(1.02, 1, 0.1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5dx0k"]
 _surfaces = [{
@@ -339,6 +342,12 @@ script = ExtResource("2_2803b")
 [node name="CollisionShape" type="CollisionShape3D" parent="FastFowardButton"]
 shape = SubResource("BoxShape3D_cxelf")
 
+[node name="Door" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.056, 0, -0.014)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Door"]
+shape = SubResource("BoxShape3D_jiysg")
+
 [node name="Model" type="Node3D" parent="."]
 
 [node name="Body" type="MeshInstance3D" parent="Model"]
@@ -376,7 +385,10 @@ mesh = SubResource("ArrayMesh_5iyh3")
 skeleton = NodePath("")
 
 [node name="TapePoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015, -0.1, 0)
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.015, -0.1, 0)
+
+[node name="CloseupPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, 0, 0, 0.03)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
