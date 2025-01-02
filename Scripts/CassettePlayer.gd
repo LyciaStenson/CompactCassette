@@ -5,10 +5,13 @@ var rotation_speed : Vector2
 
 @onready var tape_point : Node3D = $TapePoint
 
-@onready var stop_button : CassettePlayerButton = $StopButton
-@onready var play_button : CassettePlayerButton = $PlayButton
-@onready var rewind_button : CassettePlayerButton = $RewindButton
-@onready var fast_forward_button : CassettePlayerButton = $FastFowardButton
+@onready var stop_button : Clickable3D = $StopButton
+@onready var play_button : Clickable3D = $PlayButton
+@onready var rewind_button : Clickable3D = $RewindButton
+@onready var fast_forward_button : Clickable3D = $FastFowardButton
+
+var door_open : bool = false
+@onready var door_clickable : Clickable3D = $DoorClickable
 
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var audio_player : AudioStreamPlayer3D = $AudioStreamPlayer3D
@@ -16,10 +19,12 @@ var rotation_speed : Vector2
 var tape : CassetteTape
 
 func _ready() -> void:
-	stop_button.pressed.connect(stop_button_pressed)
-	play_button.pressed.connect(play_button_pressed)
-	rewind_button.pressed.connect(rewind_button_pressed)
-	fast_forward_button.pressed.connect(fast_forward_button_pressed)
+	stop_button.clicked.connect(stop_button_pressed)
+	play_button.clicked.connect(play_button_pressed)
+	rewind_button.clicked.connect(rewind_button_pressed)
+	fast_forward_button.clicked.connect(fast_forward_button_pressed)
+	
+	door_clickable.clicked.connect(door_pressed)
 
 func _physics_process(delta : float) -> void:
 	if abs(rotation_speed.x) > 0.05 or abs(rotation_speed.y) > 0.05:
@@ -41,8 +46,10 @@ func zoom_out():
 	pass
 
 func stop_button_pressed():
-	audio_player.stop()
-	animation_player.play("OpenDoor")
+	if !door_open:
+		door_open = false
+		audio_player.stop()
+		animation_player.play("OpenDoor")
 
 func play_button_pressed():
 	if !audio_player.playing && tape:
@@ -55,6 +62,14 @@ func rewind_button_pressed():
 
 func fast_forward_button_pressed():
 	print("Fast Forward Button Pressed")
+
+func door_pressed():
+	if door_open:
+		animation_player.play_backwards("OpenDoor")
+	else:
+		animation_player.play("OpenDoor")
+	door_open = !door_open
+	#door_open = !door_open
 
 func body_entered_area(body : Node3D):
 	if body is CassetteTape && body.is_physics_processing():

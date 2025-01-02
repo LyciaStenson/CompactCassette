@@ -51,8 +51,8 @@ func _physics_process(_delta : float) -> void:
 			if collider.is_in_group("Grabbable"):
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				grabbed = collider
-			elif collider is CassettePlayerButton:
-				collider.press()
+			elif collider is Clickable3D:
+				collider.click()
 		else:
 			grabbed = null
 		try_grab = false

@@ -1,7 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://cub4se60qt0sd"]
+[gd_scene load_steps=30 format=3 uid="uid://cub4se60qt0sd"]
 
 [ext_resource type="Script" path="res://Scripts/CassettePlayer.gd" id="1_tyhqh"]
-[ext_resource type="Script" path="res://Scripts/CassettePlayerButton.gd" id="2_2803b"]
+[ext_resource type="Script" path="res://Scripts/Clickable3D.gd" id="2_b0i7d"]
 [ext_resource type="Material" uid="uid://ha2ifnsjxllx" path="res://Materials/PlayerBody.tres" id="2_bju3p"]
 [ext_resource type="Material" uid="uid://irxdmyub874d" path="res://Materials/PlayerButton.tres" id="3_o67ix"]
 [ext_resource type="Material" uid="uid://2avrv2l2e606" path="res://Materials/PlayerWindow.tres" id="4_twpgd"]
@@ -19,7 +19,7 @@ size = Vector3(0.145, 0.06, 0.145)
 size = Vector3(0.31, 0.06, 0.145)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jiysg"]
-size = Vector3(1.02, 1, 0.1)
+size = Vector3(1.02, 0.71, 0.05)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5dx0k"]
 _surfaces = [{
@@ -297,10 +297,38 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.959931, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DoorClickable:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.959931, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_empeb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorClickable:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.959931, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ybssb"]
 _data = {
-"OpenDoor": SubResource("Animation_r6q8c")
+"OpenDoor": SubResource("Animation_r6q8c"),
+"RESET": SubResource("Animation_empeb")
 }
 
 [node name="CassettePlayer" type="StaticBody3D" groups=["Grabbable"]]
@@ -316,36 +344,38 @@ shape = SubResource("BoxShape3D_u2k1t")
 
 [node name="StopButton" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43, 0.44, 0)
-script = ExtResource("2_2803b")
+script = ExtResource("2_b0i7d")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="StopButton"]
 shape = SubResource("BoxShape3D_cxelf")
 
 [node name="PlayButton" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.165, 0.44, 0)
-script = ExtResource("2_2803b")
+script = ExtResource("2_b0i7d")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="PlayButton"]
 shape = SubResource("BoxShape3D_ng8vm")
 
 [node name="RewindButton" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.44, 0)
-script = ExtResource("2_2803b")
+script = ExtResource("2_b0i7d")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="RewindButton"]
 shape = SubResource("BoxShape3D_cxelf")
 
 [node name="FastFowardButton" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.44, 0)
-script = ExtResource("2_2803b")
+script = ExtResource("2_b0i7d")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="FastFowardButton"]
 shape = SubResource("BoxShape3D_cxelf")
 
-[node name="Door" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.056, 0, -0.014)
+[node name="DoorClickable" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.573576, -0.819152, 0, 0.819152, 0.573576, 0.056, -0.395, 0.144)
+script = ExtResource("2_b0i7d")
 
-[node name="CollisionShape" type="CollisionShape3D" parent="Door"]
+[node name="CollisionShape" type="CollisionShape3D" parent="DoorClickable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0.33, 0.01)
 shape = SubResource("BoxShape3D_jiysg")
 
 [node name="Model" type="Node3D" parent="."]
