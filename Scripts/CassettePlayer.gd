@@ -69,7 +69,6 @@ func door_pressed():
 	else:
 		animation_player.play("OpenDoor")
 	door_open = !door_open
-	#door_open = !door_open
 
 func body_entered_area(body : Node3D):
 	if door_open && body is CassetteTape && body.is_physics_processing():

@@ -2,4 +2,6 @@
 
 [resource]
 cull_mode = 2
-albedo_color = Color(0.118581, 0.118581, 0.118581, 1)
+albedo_color = Color(0.0177324, 0.0177324, 0.0177324, 1)
+metallic = 0.65
+roughness = 0.45
