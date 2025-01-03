@@ -2,13 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://cub4se60qt0sd" path="res://Scenes/CassettePlayer.tscn" id="1_26e47"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_gfgva"]
-[ext_resource type="PackedScene" uid="uid://c1mh3g1dptbgn" path="res://Scenes/CassetteTape.tscn" id="2_unspv"]
+[ext_resource type="PackedScene" uid="uid://c1mh3g1dptbgn" path="res://Scenes/SynthCassetteTape.tscn" id="2_unspv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mcpi0"]
 size = Vector3(10, 10, 0.1)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jw7xw"]
+sky_top_color = Color(0.305119, 0.473356, 0.56481, 1)
+sky_horizon_color = Color(0.560784, 0.47451, 0.643137, 1)
+sky_curve = 0.5
 ground_bottom_color = Color(0.657334, 0.667709, 0.683268, 1)
+ground_horizon_color = Color(0.562089, 0.475747, 0.642557, 1)
+ground_curve = 0.6
 
 [sub_resource type="Sky" id="Sky_v2885"]
 sky_material = SubResource("ProceduralSkyMaterial_jw7xw")
@@ -23,8 +28,8 @@ tonemap_mode = 2
 [node name="CassettePlayer" parent="." instance=ExtResource("1_26e47")]
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0, 0)
 
-[node name="CassetteTape" parent="." instance=ExtResource("2_unspv")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.5, 0.4, 0.1)
+[node name="SynthCassetteTape" parent="." instance=ExtResource("2_unspv")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.3, 0.5, 0.1)
 
 [node name="DraggablesBlocker" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)

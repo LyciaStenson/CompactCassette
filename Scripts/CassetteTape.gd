@@ -7,13 +7,14 @@ class_name CassetteTape
 @onready var camera : Camera3D = get_viewport().get_camera_3d()
 
 var cassette_player : CassettePlayer
+var playing : bool = false
 var in_player : bool = false
 var dropped_in_player : bool = false
 
 var playback_position : float
 
 func drag(relative : Vector2) -> void:
-	if in_player && !dropped_in_player:
+	if playing || (in_player && !dropped_in_player):
 		return
 	in_player = false
 	dropped_in_player = false
@@ -21,8 +22,6 @@ func drag(relative : Vector2) -> void:
 
 func drop():
 	dropped_in_player = in_player
-	#if in_player:
-		#dropped_in_player = true
 
 func zoom_in():
 	var zoom : Vector3 = 1.3 * (global_position - camera.global_position).normalized()

@@ -3,6 +3,8 @@ class_name CassettePlayer
 
 var rotation_speed : Vector2
 
+var velocity : Vector3
+
 @onready var tape_point : Node3D = $TapePoint
 
 @onready var stop_button : Clickable3D = $StopButton
@@ -26,6 +28,8 @@ var fast_forward_pressed : bool = false
 
 @onready var tape_audio_player : AudioStreamPlayer = $TapeAudioStreamPlayer
 @onready var hiss_audio_player : AudioStreamPlayer = $HissAudioStreamPlayer
+
+@onready var camera : Camera3D = get_viewport().get_camera_3d()
 
 var tape : CassetteTape
 
@@ -55,6 +59,16 @@ func _physics_process(delta : float) -> void:
 	else:
 		rotation_speed.x = 0.0
 		rotation_speed.y = 0.0
+	
+	if abs(velocity.x) > 0.05 or abs(velocity.y) > 0.05 or abs(velocity.z) > 0.05:
+		velocity.x *= 0.9
+		velocity.y *= 0.9
+		velocity.z *= 0.9
+	else:
+		velocity.x = 0.0
+		velocity.y = 0.0
+		velocity.z = 0.0
+	global_position += velocity * delta
 
 func drag(relative : Vector2) -> void:
 	rotation_speed += relative * 0.005
@@ -63,10 +77,12 @@ func drop():
 	pass
 
 func zoom_in():
-	pass
+	var zoom : Vector3 = 1.3 * (global_position - camera.global_position).normalized()
+	velocity += zoom
 
 func zoom_out():
-	pass
+	var zoom : Vector3 = 1.3 * (global_position - camera.global_position).normalized()
+	velocity -= zoom
 
 func unpress_buttons() -> bool:
 	var button_unpressed : bool = false
@@ -89,6 +105,7 @@ func on_stop_pressed():
 	hiss_audio_player.stop()
 	stop_button_animation_player.play("StopButton")
 	if tape && play_pressed:
+		tape.playing = false
 		tape.playback_position = tape_audio_player.get_playback_position()
 	if unpress_buttons():
 		door_open = true
@@ -104,6 +121,7 @@ func on_play_pressed():
 		hiss_audio_player.play()
 		await get_tree().create_timer(0.1).timeout
 		if !tape_audio_player.playing && tape:
+			tape.playing = true
 			tape_audio_player.stream = tape.track_1
 			tape_audio_player.play(tape.playback_position)
 
@@ -115,6 +133,8 @@ func on_rewind_pressed():
 		rewind_pressed = true
 		await get_tree().create_timer(0.3).timeout
 		hiss_audio_player.play()
+		if tape:
+			tape.playing = true
 
 func on_fast_forward_pressed():
 	if !fast_forward_pressed:
@@ -124,6 +144,8 @@ func on_fast_forward_pressed():
 		fast_forward_pressed = true
 		await get_tree().create_timer(0.3).timeout
 		hiss_audio_player.play()
+		if tape:
+			tape.playing = true
 
 func on_door_pressed():
 	if door_open:
@@ -136,11 +158,9 @@ func body_entered_area(body : Node3D):
 	if door_open && body is CassetteTape && !body.in_player:
 		tape = body
 		tape.cassette_player = self
-		print("Setting in_player true")
 		body.in_player = true
 
 func body_exited_area(body : Node3D):
 	if door_open && body == tape:
-		print("Setting in_player false")
 		tape = null
 		body.in_player = false
