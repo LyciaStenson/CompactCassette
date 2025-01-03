@@ -6,6 +6,8 @@ var try_grab : bool = false
 var dragging : bool = false
 var rotating : bool = false
 
+@export var draggables_blocker : Node3D
+
 func _input(event : InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if grabbed && event.button_index == MOUSE_BUTTON_LEFT && event.is_released():
@@ -42,6 +44,7 @@ func _physics_process(_delta : float) -> void:
 		var origin = project_ray_origin(mouse_pos)
 		var end = origin + project_ray_normal(mouse_pos) * 1000.0
 		var query = PhysicsRayQueryParameters3D.create(origin, end)
+		query.exclude = [draggables_blocker]
 		
 		var result = space_state.intersect_ray(query)
 		

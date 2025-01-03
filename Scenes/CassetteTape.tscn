@@ -52,3 +52,17 @@ shape = SubResource("BoxShape3D_xftuu")
 [node name="Cube" type="MeshInstance3D" parent="Model"]
 mesh = SubResource("ArrayMesh_ym3kl")
 skeleton = NodePath("")
+
+[node name="Side1Label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0.041)
+pixel_size = 0.0005
+text = "Side 1"
+font_size = 96
+outline_size = 0
+
+[node name="Side2Label" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.35, 0, -0.041)
+pixel_size = 0.0005
+text = "Side 2"
+font_size = 96
+outline_size = 0

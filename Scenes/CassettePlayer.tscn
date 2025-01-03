@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cub4se60qt0sd"]
+[gd_scene load_steps=38 format=3 uid="uid://cub4se60qt0sd"]
 
 [ext_resource type="Script" path="res://Scripts/CassettePlayer.gd" id="1_tyhqh"]
 [ext_resource type="Script" path="res://Scripts/Clickable3D.gd" id="2_b0i7d"]
@@ -404,11 +404,47 @@ tracks/0/keys = {
 "values": [Vector3(-0.1, 0, 0), Vector3(-0.1, -0.06, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_mw33l"]
+resource_name = "FastForwardButton"
+length = 0.35
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/FastForwardButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.1, 0, 0), Vector3(-0.1, -0.06, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rviee"]
+resource_name = "StopButton"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/StopButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.1, 0, 0), Vector3(-0.1, -0.06, 0), Vector3(-0.1, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ybssb"]
 _data = {
+"FastForwardButton": SubResource("Animation_mw33l"),
 "OpenDoor": SubResource("Animation_r6q8c"),
 "PlayMechanism": SubResource("Animation_8w2bm"),
-"RewindButton": SubResource("Animation_1ue78")
+"RewindButton": SubResource("Animation_1ue78"),
+"StopButton": SubResource("Animation_rviee")
 }
 
 [node name="CassettePlayer" type="StaticBody3D" groups=["Grabbable"]]
@@ -515,6 +551,11 @@ libraries = {
 "": SubResource("AnimationLibrary_ybssb")
 }
 
+[node name="StopButtonAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ybssb")
+}
+
 [node name="PlayButtonAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ybssb")
@@ -525,9 +566,15 @@ libraries = {
 "": SubResource("AnimationLibrary_ybssb")
 }
 
+[node name="FastFowardButtonAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ybssb")
+}
+
 [node name="TapeAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="HissAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_q2t47")
+volume_db = -8.0
 
 [connection signal="body_entered" from="TapeOverlapArea" to="." method="body_entered_area"]
