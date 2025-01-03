@@ -15,7 +15,7 @@ func _input(event : InputEvent) -> void:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				Input.warp_mouse(unproject_position(grabbed.global_position))
 			grabbed = null
-	if event.is_action("Drag") or event.is_action("Rotate"):
+	if event.is_action("Drag"):
 		if event.is_pressed():
 			try_grab = true
 		else:

@@ -82,14 +82,15 @@ func unpress_buttons() -> bool:
 	return !button_unpressed && !door_open
 
 func on_stop_pressed():
+	tape_audio_player.stop()
+	hiss_audio_player.stop()
 	stop_button_animation_player.play("StopButton")
 	if tape && play_pressed:
 		tape.playback_position = tape_audio_player.get_playback_position()
 	if unpress_buttons():
 		door_open = true
+		await get_tree().create_timer(0.1).timeout
 		door_animation_player.play("OpenDoor")
-	tape_audio_player.stop()
-	hiss_audio_player.stop()
 
 func on_play_pressed():
 	if !play_pressed:
@@ -98,7 +99,7 @@ func on_play_pressed():
 		play_pressed = true
 		await get_tree().create_timer(0.3).timeout
 		hiss_audio_player.play()
-		await get_tree().create_timer(0.05).timeout
+		await get_tree().create_timer(0.1).timeout
 		if !tape_audio_player.playing && tape:
 			tape_audio_player.stream = tape.track_1
 			tape_audio_player.play(tape.playback_position)

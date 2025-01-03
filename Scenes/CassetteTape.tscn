@@ -39,7 +39,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bpkmk")
 
-[node name="CassetteTape" type="CharacterBody3D" groups=["Grabbable"]]
+[node name="SynthCassetteTape" type="CharacterBody3D" groups=["Grabbable"]]
 motion_mode = 1
 script = ExtResource("1_0adaw")
 track_1 = ExtResource("2_2mj41")
