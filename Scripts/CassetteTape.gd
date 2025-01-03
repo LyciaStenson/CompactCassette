@@ -8,7 +8,10 @@ class_name CassetteTape
 
 var in_player : bool = false
 
+var playback_position : float
+
 func drag(relative : Vector2) -> void:
+	print("Tape drag")
 	velocity = Vector3(relative.x * 0.3, -relative.y * 0.3, 0.0)
 
 func zoom_in():

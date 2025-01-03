@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1mh3g1dptbgn"]
 
 [ext_resource type="Script" path="res://Scripts/CassetteTape.gd" id="1_0adaw"]
-[ext_resource type="AudioStream" uid="uid://b3j4vgobe8vlf" path="res://Music/80s-retro-synth-wave-223103.mp3" id="2_2mj41"]
+[ext_resource type="AudioStream" uid="uid://b3j4vgobe8vlf" path="res://Sounds/80s-retro-synth-wave-223103.mp3" id="2_2mj41"]
 [ext_resource type="Material" uid="uid://cjbqw587u8mhk" path="res://Materials/TapeShell.tres" id="3_humj7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xftuu"]

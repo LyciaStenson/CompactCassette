@@ -14,21 +14,24 @@ var door_open : bool = false
 @onready var door_clickable : Clickable3D = $DoorClickable
 
 var play_pressed : bool = false
+var rewind_pressed : bool = false
 
 @onready var door_animation_player : AnimationPlayer = $DoorAnimationPlayer
 @onready var play_button_animation_player : AnimationPlayer = $PlayButtonAnimationPlayer
+@onready var rewind_button_animation_player : AnimationPlayer = $RewindButtonAnimationPlayer
 
-@onready var audio_player : AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var tape_audio_player : AudioStreamPlayer = $TapeAudioStreamPlayer
+@onready var hiss_audio_player : AudioStreamPlayer = $HissAudioStreamPlayer
 
 var tape : CassetteTape
 
 func _ready() -> void:
-	stop_button.clicked.connect(stop_button_pressed)
-	play_button.clicked.connect(play_button_pressed)
-	rewind_button.clicked.connect(rewind_button_pressed)
-	fast_forward_button.clicked.connect(fast_forward_button_pressed)
+	stop_button.clicked.connect(on_stop_pressed)
+	play_button.clicked.connect(on_play_pressed)
+	rewind_button.clicked.connect(on_rewind_pressed)
+	fast_forward_button.clicked.connect(on_fast_forward_pressed)
 	
-	door_clickable.clicked.connect(door_pressed)
+	door_clickable.clicked.connect(on_door_pressed)
 
 func _physics_process(delta : float) -> void:
 	if abs(rotation_speed.x) > 0.05 or abs(rotation_speed.y) > 0.05:
@@ -41,7 +44,7 @@ func _physics_process(delta : float) -> void:
 		rotation_speed.y = 0.0
 
 func drag(relative : Vector2) -> void:
-	rotation_speed += relative * 0.01
+	rotation_speed += relative * 0.005
 
 func zoom_in():
 	pass
@@ -49,37 +52,47 @@ func zoom_in():
 func zoom_out():
 	pass
 
-func stop_button_pressed():
+func on_stop_pressed():
+	var button_unpressed : bool = false
 	if play_pressed:
-		print("Play was pressed")
 		play_button_animation_player.play_backwards("PlayMechanism")
 		play_pressed = false
-	else:
-		print("Play was not pressed")
-	if !door_open:
+		button_unpressed = true
+	if rewind_pressed:
+		rewind_button_animation_player.play_backwards("RewindButton")
+		rewind_pressed = false
+		button_unpressed = true
+	if !button_unpressed && !door_open:
 		door_open = true
-		audio_player.stop()
 		door_animation_player.play("OpenDoor")
+	if tape:
+		tape.playback_position = tape_audio_player.get_playback_position()
+	tape_audio_player.stop()
+	hiss_audio_player.stop()
 
-func play_button_pressed():
+func on_play_pressed():
 	if !play_pressed:
-		print("Play was not pressed")
 		play_button_animation_player.play("PlayMechanism")
 		play_pressed = true
-	else:
-		print("Play was pressed")
-		if !audio_player.playing && tape:
-			audio_player.stream = tape.track_1
-			audio_player.play(0.0)
-	#print("Play Button Pressed")
+		await get_tree().create_timer(0.3).timeout
+		hiss_audio_player.play()
+		await get_tree().create_timer(0.05).timeout
+		if !tape_audio_player.playing && tape:
+			tape_audio_player.stream = tape.track_1
+			tape_audio_player.play(tape.playback_position)
 
-func rewind_button_pressed():
-	print("Rewind Button Pressed")
+func on_rewind_pressed():
+	if !rewind_pressed:
+		rewind_button_animation_player.play("RewindButton")
+		rewind_pressed = true
+		await get_tree().create_timer(0.3).timeout
+		hiss_audio_player.play()
 
-func fast_forward_button_pressed():
-	print("Fast Forward Button Pressed")
+func on_fast_forward_pressed():
+	await get_tree().create_timer(0.3).timeout
+	hiss_audio_player.play()
 
-func door_pressed():
+func on_door_pressed():
 	if door_open:
 		door_animation_player.play_backwards("OpenDoor")
 	else:
@@ -93,6 +106,3 @@ func body_entered_area(body : Node3D):
 		body.in_player = true
 		body.position = Vector3()
 		body.rotation = Vector3()
-		#body.rotation_degrees = Vector3(0.0, 0.0, 180.0)
-		#body.set_physics_process(false)
-		#body.position = tape_point.position
