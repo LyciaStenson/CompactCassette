@@ -140,6 +140,7 @@ func body_entered_area(body : Node3D):
 		body.in_player = true
 
 func body_exited_area(body : Node3D):
-	if door_open && body is CassetteTape:
+	if door_open && body == tape:
 		print("Setting in_player false")
+		tape = null
 		body.in_player = false

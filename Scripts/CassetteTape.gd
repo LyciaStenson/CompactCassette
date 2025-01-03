@@ -15,8 +15,8 @@ var playback_position : float
 func drag(relative : Vector2) -> void:
 	if in_player && !dropped_in_player:
 		return
-	#in_player = false
-	#dropped_in_player = false
+	in_player = false
+	dropped_in_player = false
 	velocity = Vector3(relative.x * 0.3, -relative.y * 0.3, 0.0)
 
 func drop():
