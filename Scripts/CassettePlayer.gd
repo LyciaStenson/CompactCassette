@@ -101,12 +101,13 @@ func unpress_buttons() -> bool:
 	return !button_unpressed && !door_open
 
 func on_stop_pressed():
-	tape_audio_player.stop()
-	hiss_audio_player.stop()
 	stop_button_animation_player.play("StopButton")
 	if tape && play_pressed:
 		tape.playing = false
 		tape.playback_position = tape_audio_player.get_playback_position()
+		print("Set playback to ", tape_audio_player.get_playback_position())
+	tape_audio_player.stop()
+	hiss_audio_player.stop()
 	if unpress_buttons():
 		door_open = true
 		await get_tree().create_timer(0.1).timeout
@@ -123,6 +124,7 @@ func on_play_pressed():
 		if !tape_audio_player.playing && tape:
 			tape.playing = true
 			tape_audio_player.stream = tape.track_1
+			tape_audio_player.volume_db = tape.volume
 			tape_audio_player.play(tape.playback_position)
 
 func on_rewind_pressed():
@@ -155,7 +157,7 @@ func on_door_pressed():
 	door_open = !door_open
 
 func body_entered_area(body : Node3D):
-	if door_open && body is CassetteTape && !body.in_player:
+	if !tape && door_open && body is CassetteTape && !body.in_player:
 		tape = body
 		tape.cassette_player = self
 		body.in_player = true

@@ -4,6 +4,8 @@ class_name CassetteTape
 @export var track_1 : AudioStream
 @export var track_2 : AudioStream
 
+@export var volume : float = 0.0
+
 @onready var camera : Camera3D = get_viewport().get_camera_3d()
 
 var cassette_player : CassettePlayer
