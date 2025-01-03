@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ba2646k5gih8v"]
+[gd_scene load_steps=10 format=3 uid="uid://ba2646k5gih8v"]
 
 [ext_resource type="PackedScene" uid="uid://cub4se60qt0sd" path="res://Scenes/CassettePlayer.tscn" id="1_26e47"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_gfgva"]
 [ext_resource type="PackedScene" uid="uid://diy4kk45uq3k1" path="res://Scenes/RockCassetteTape.tscn" id="2_ntjbv"]
 [ext_resource type="PackedScene" uid="uid://c1mh3g1dptbgn" path="res://Scenes/SynthCassetteTape.tscn" id="2_unspv"]
+[ext_resource type="PackedScene" uid="uid://dv31q1urwv2ii" path="res://Scenes/NarrationCassetteTape.tscn" id="5_l5we8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mcpi0"]
 size = Vector3(10, 10, 0.1)
@@ -52,3 +53,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_voxt8")
+
+[node name="NarrationCassetteTape" parent="." instance=ExtResource("5_l5we8")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.85, -0.145)

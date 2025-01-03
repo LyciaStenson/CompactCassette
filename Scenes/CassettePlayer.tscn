@@ -614,7 +614,7 @@ libraries = {
 
 [node name="HissAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_q2t47")
-volume_db = -8.0
+volume_db = -6.0
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.254148, 0.198595, 0)

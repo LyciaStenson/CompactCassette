@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dv31q1urwv2ii"]
+[gd_scene load_steps=7 format=3 uid="uid://dv31q1urwv2ii"]
 
 [ext_resource type="Script" path="res://Scripts/CassetteTape.gd" id="1_ny4ru"]
+[ext_resource type="AudioStream" uid="uid://cnihpvaffwknx" path="res://Sounds/Narration.mp3" id="2_1aw52"]
 [ext_resource type="Material" uid="uid://cjbqw587u8mhk" path="res://Materials/TapeShell.tres" id="3_k7qf5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xftuu"]
@@ -38,9 +39,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bpkmk")
 
-[node name="SynthCassetteTape" type="CharacterBody3D" groups=["Grabbable"]]
+[node name="NarrationCassetteTape" type="CharacterBody3D" groups=["Grabbable"]]
 motion_mode = 1
 script = ExtResource("1_ny4ru")
+track_1 = ExtResource("2_1aw52")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_xftuu")
