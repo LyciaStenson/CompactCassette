@@ -13,7 +13,11 @@ var rotation_speed : Vector2
 var door_open : bool = false
 @onready var door_clickable : Clickable3D = $DoorClickable
 
-@onready var animation_player : AnimationPlayer = $AnimationPlayer
+var play_pressed : bool = false
+
+@onready var door_animation_player : AnimationPlayer = $DoorAnimationPlayer
+@onready var play_button_animation_player : AnimationPlayer = $PlayButtonAnimationPlayer
+
 @onready var audio_player : AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 var tape : CassetteTape
@@ -46,16 +50,28 @@ func zoom_out():
 	pass
 
 func stop_button_pressed():
+	if play_pressed:
+		print("Play was pressed")
+		play_button_animation_player.play_backwards("PlayMechanism")
+		play_pressed = false
+	else:
+		print("Play was not pressed")
 	if !door_open:
 		door_open = true
 		audio_player.stop()
-		animation_player.play("OpenDoor")
+		door_animation_player.play("OpenDoor")
 
 func play_button_pressed():
-	if !audio_player.playing && tape:
-		audio_player.stream = tape.track_1
-		audio_player.play(0.0)
-	print("Play Button Pressed")
+	if !play_pressed:
+		print("Play was not pressed")
+		play_button_animation_player.play("PlayMechanism")
+		play_pressed = true
+	else:
+		print("Play was pressed")
+		if !audio_player.playing && tape:
+			audio_player.stream = tape.track_1
+			audio_player.play(0.0)
+	#print("Play Button Pressed")
 
 func rewind_button_pressed():
 	print("Rewind Button Pressed")
@@ -65,9 +81,9 @@ func fast_forward_button_pressed():
 
 func door_pressed():
 	if door_open:
-		animation_player.play_backwards("OpenDoor")
+		door_animation_player.play_backwards("OpenDoor")
 	else:
-		animation_player.play("OpenDoor")
+		door_animation_player.play("OpenDoor")
 	door_open = !door_open
 
 func body_entered_area(body : Node3D):
