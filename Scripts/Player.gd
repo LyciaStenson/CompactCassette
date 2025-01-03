@@ -8,12 +8,15 @@ var rotating : bool = false
 
 @export var draggables_blocker : Node3D
 
+@export var cassette_player : CassettePlayer
+
 func _input(event : InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if grabbed && event.button_index == MOUSE_BUTTON_LEFT && event.is_released():
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				Input.warp_mouse(unproject_position(grabbed.global_position))
+			grabbed.drop()
 			grabbed = null
 	if event.is_action("Drag"):
 		if event.is_pressed():
@@ -23,9 +26,9 @@ func _input(event : InputEvent) -> void:
 	if grabbed:
 		if event is InputEventMouseMotion:
 			grabbed.drag(event.relative)
-		if event.is_action_pressed("ZoomIn") and grabbed:
+		if grabbed && event.is_action_pressed("ZoomIn"):
 			grabbed.zoom_in()
-		elif event.is_action_pressed("ZoomOut") and grabbed:
+		elif grabbed && event.is_action_pressed("ZoomOut"):
 			grabbed.zoom_out()
 
 func zoom_in():

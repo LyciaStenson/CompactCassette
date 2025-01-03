@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://cjbqw587u8mhk" path="res://Materials/TapeShell.tres" id="3_humj7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xftuu"]
-size = Vector3(1.02, 0.635, 0.127)
+size = Vector3(0.96, 0.6, 0.08)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_bpkmk"]
 _surfaces = [{

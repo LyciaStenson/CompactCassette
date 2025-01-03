@@ -40,10 +40,10 @@ func _ready() -> void:
 func _process(delta):
 	if tape:
 		if fast_forward_pressed:
-			tape.playback_position += delta * 2.5
+			tape.playback_position += delta * 2.0
 			tape.playback_position = clampf(tape.playback_position, 0.0, tape.track_1.get_length())
 		elif rewind_pressed:
-			tape.playback_position -= delta * 2.5
+			tape.playback_position -= delta * 2.0
 			tape.playback_position = clampf(tape.playback_position, 0.0, tape.track_1.get_length())
 
 func _physics_process(delta : float) -> void:
@@ -58,6 +58,9 @@ func _physics_process(delta : float) -> void:
 
 func drag(relative : Vector2) -> void:
 	rotation_speed += relative * 0.005
+
+func drop():
+	pass
 
 func zoom_in():
 	pass
@@ -132,7 +135,11 @@ func on_door_pressed():
 func body_entered_area(body : Node3D):
 	if door_open && body is CassetteTape && !body.in_player:
 		tape = body
-		body.reparent(tape_point)
+		tape.cassette_player = self
+		print("Setting in_player true")
 		body.in_player = true
-		body.position = Vector3()
-		body.rotation = Vector3()
+
+func body_exited_area(body : Node3D):
+	if door_open && body is CassetteTape:
+		print("Setting in_player false")
+		body.in_player = false
